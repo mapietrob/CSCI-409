@@ -25,6 +25,7 @@ class Runway(models.Model):
         ('R', 'Right'),
         ('N', 'None'),
     ]
+    
     airport = models.ForeignKey(Airport, on_delete=models.CASCADE, related_name='runways')
     runway_number = models.IntegerField()
     runway_designation = models.CharField(max_length=1, choices=RUNWAY_DESIGNATIONS)
@@ -37,7 +38,7 @@ class Runway(models.Model):
 class Flight(models.Model):
     origin = models.ForeignKey(Airport, related_name='flight_origin', on_delete=models.PROTECT)
     destination = models.ForeignKey(Airport, related_name='flight_destination', on_delete=models.PROTECT)
-    airline = models.ForeignKey(Airline, on_delete=models.PROTECT)
+    airline = models.ForeignKey(Airline, on_delete=models.PROTECT, related_name='flights')
     flight_number = models.IntegerField()
     departure = models.DateTimeField()
     arrival = models.DateTimeField()
